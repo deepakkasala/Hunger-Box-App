@@ -40,4 +40,5 @@ const StallSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Stall", StallSchema);
+const Stall = mongoose.model("Stall", StallSchema);
+module.exports = Stall;

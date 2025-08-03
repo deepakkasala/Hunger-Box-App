@@ -1,8 +1,8 @@
-// controllers/userAuthController.js
-
+const Stall = require("../models/Stall");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const FoodItem = require("../models/FoodItem");
 
 // Register a new user
 const registerUser = async (req, res) => {
@@ -75,4 +75,25 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getAllStalls = async (req, res) => {
+  try {
+    const stalls = await Stall.find().select(
+      "name image rating pendingOrdersCount pickupStatus"
+    );
+    res.json(stalls);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching stalls" });
+  }
+};
+
+const getItemsByStall = async (req, res) => {
+  try {
+    const { stallId } = req.params;
+    const items = await FoodItem.find({ stall: stallId });
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching items" });
+  }
+};
+
+module.exports = { registerUser, loginUser, getAllStalls, getItemsByStall };
