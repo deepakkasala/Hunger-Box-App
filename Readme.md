@@ -58,6 +58,7 @@ Header {location & cafeteria,search,occasion}
   location,
   cart,
   payments,
+  fav items
 
 - Stall Model:
   stall name,
